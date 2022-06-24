@@ -19,13 +19,8 @@ if got_zeitgeist and precond and filename:
   mimetype = "mimetype-unknown"
   try:
     pass
-    #f = gi.File(filename)
-    #fi = f.query_info(gi.FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE)
-    #uri = f.get_uri()
     uri="file://" + filename
     mimetype = mimetypes.guess_type(filename)[0]
-    print("mimetype=" + mimetype)
-    #mimetype = fi.get_content_type()
   except:
     pass
   else:
@@ -37,7 +32,6 @@ if got_zeitgeist and precond and filename:
       origin=str(uri.rpartition("/")[0]),
       mimetype=str(mimetype)
     )
-    # print "subject: %r" % subject
     event = Event.new_for_values(
       timestamp=int(time.time()*1000),
       interpretation=str(use),
@@ -45,9 +39,7 @@ if got_zeitgeist and precond and filename:
       actor="application://vim",
       subjects=[subject,]
     )
-    # print "event: %r" % event
     zeitgeistclient.insert_event(event)
-    # print "insert done"
 endpython
 endfunction
 
